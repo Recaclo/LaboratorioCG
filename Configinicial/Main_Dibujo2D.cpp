@@ -1,3 +1,9 @@
+// Laura Reyes Carrillo
+// Dibujo de primitivas en 2D
+// 15 de febrero de 2026
+//Previo 2
+//320015764
+
 #include<iostream>
 
 //#define GLEW_STATIC
