@@ -1,5 +1,5 @@
 ﻿// Laura Reyes Carrillo
-// Sol con triangulos: dodecagono (12 triángulos) + 1 rayo
+// Sol con triangulos: dodecagono (12 triángulos) + 12 rayos
 // Practica 2 - Computacion Grafica
 
 #include <iostream>
@@ -7,8 +7,10 @@
 #include <GLFW/glfw3.h>
 #include "Shader.h"
 
+// Callback: GLFW llama cuando cambia el tamaño de la ventana
 void resize(GLFWwindow* window, int width, int height);
 
+// Tamaño inicial de la ventana
 const GLint WIDTH = 800, HEIGHT = 600;
 
 int main()
@@ -21,9 +23,11 @@ int main()
     }
 
     // 2) Creamos la ventana
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT,
-        "Reyes Carrillo Laura - Sol (dodecagono + 1 rayo)",
-        NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(
+        WIDTH, HEIGHT,
+        "Reyes Carrillo Laura - Sol (dodecagono + 12 rayos)",
+        NULL, NULL
+    );
 
     if (window == NULL)
     {
@@ -58,16 +62,17 @@ int main()
 
     // =========================================================
     // VERTICES (x,y,z,r,g,b)
-    // NOTA: aqui estás usando indices 0..15 (16 vertices)
     // 0 = centro
-    // 1..12 = dodecagono
-    // 13..15 = 1 rayo (base 13,14 y punta 15)
+    // 1..12 = dodecagono (tus puntos)
+    // 13..24 = anillo externo (bases de rayos)
+    // 25..36 = puntas de los 12 rayos
+    // Total = 37 vertices
     // =========================================================
     float vertices[] = {
         // centro
         0.0f,  0.0f, 0.0f,   1.0f, 1.0f, 0.0f,   // 0
 
-        // dodecagono (12 puntos)
+        // dodecagono (12 puntos) - TUS PUNTOS
         0.4f,   0.1f, 0.0f,  1.0f, 1.0f, 0.0f,   // 1
         0.4f,  -0.1f, 0.0f,  1.0f, 1.0f, 0.0f,   // 2
         0.29f, -0.29f,0.0f,  1.0f, 1.0f, 0.0f,   // 3
@@ -81,15 +86,44 @@ int main()
         0.1f,   0.4f, 0.0f,  1.0f, 1.0f, 0.0f,   // 11
         0.29f,  0.29f,0.0f,  1.0f, 1.0f, 0.0f,   // 12
 
-        // rayo (primer rayo a la derecha)
-        0.44f,  0.1f, 0.0f,  1.0f, 0.6f, 0.0f,   // 13 base arriba
-        0.44f, -0.1f, 0.0f,  1.0f, 0.6f, 0.0f,   // 14 base abajo
-        0.85f,  0.0f, 0.0f,  1.0f, 0.6f, 0.0f    // 15 punta
+        // =====================================================
+        // BASES DE RAYOS (anillo externo) 13..24
+        // =====================================================
+        0.44f,  0.10f, 0.0f,  1.0f, 0.75f, 0.0f,  // 13
+        0.44f, -0.10f, 0.0f,  1.0f, 0.75f, 0.0f,  // 14
+        0.33f, -0.31f, 0.0f,  1.0f, 0.75f, 0.0f,  // 15
+        0.12f, -0.43f, 0.0f,  1.0f, 0.75f, 0.0f,  // 16
+       -0.12f, -0.43f, 0.0f,  1.0f, 0.75f, 0.0f,  // 17
+       -0.33f, -0.31f, 0.0f,  1.0f, 0.75f, 0.0f,  // 18
+       -0.44f, -0.10f, 0.0f,  1.0f, 0.75f, 0.0f,  // 19
+       -0.44f,  0.10f, 0.0f,  1.0f, 0.75f, 0.0f,  // 20
+       -0.33f,  0.31f, 0.0f,  1.0f, 0.75f, 0.0f,  // 21
+       -0.12f,  0.43f, 0.0f,  1.0f, 0.75f, 0.0f,  // 22
+        0.12f,  0.43f, 0.0f,  1.0f, 0.75f, 0.0f,  // 23
+        0.33f,  0.31f, 0.0f,  1.0f, 0.75f, 0.0f,  // 24
+
+        // =====================================================
+        // PUNTAS DE RAYOS 25..36
+        // =====================================================
+        0.85f,  0.00f, 0.0f,  1.0f, 0.55f, 0.0f,  // 25 (rayo 1)
+        0.75f, -0.42f, 0.0f,  1.0f, 0.55f, 0.0f,  // 26 (rayo 2)
+        0.41f, -0.79f, 0.0f,  1.0f, 0.55f, 0.0f,  // 27 (rayo 3)
+        0.00f, -0.85f, 0.0f,  1.0f, 0.55f, 0.0f,  // 28 (rayo 4)
+       -0.41f, -0.79f, 0.0f,  1.0f, 0.55f, 0.0f,  // 29 (rayo 5)
+       -0.75f, -0.42f, 0.0f,  1.0f, 0.55f, 0.0f,  // 30 (rayo 6)
+       -0.85f,  0.00f, 0.0f,  1.0f, 0.55f, 0.0f,  // 31 (rayo 7)
+       -0.75f,  0.42f, 0.0f,  1.0f, 0.55f, 0.0f,  // 32 (rayo 8)
+       -0.41f,  0.79f, 0.0f,  1.0f, 0.55f, 0.0f,  // 33 (rayo 9)
+        0.00f,  0.85f, 0.0f,  1.0f, 0.55f, 0.0f,  // 34 (rayo 10)
+        0.41f,  0.79f, 0.0f,  1.0f, 0.55f, 0.0f,  // 35 (rayo 11)
+        0.75f,  0.42f, 0.0f,  1.0f, 0.55f, 0.0f   // 36 (rayo 12)
     };
 
     // =========================================================
-    // INDICES: 12 triángulos del centro + 1 triángulo del rayo
-    // Cada 3 índices = 1 triángulo
+    // INDICES:
+    // - 12 triángulos del centro
+    // - 12 triángulos de rayos
+    // Total = 24 triangulos = 72 indices
     // =========================================================
     unsigned int indices[] = {
         // Centro (12 triángulos)
@@ -106,8 +140,19 @@ int main()
         0, 11, 12,
         0, 12,  1,
 
-        // 1 rayo (triángulo): base (13,14) + punta (15)
-        13, 14, 15
+        // Rayos (12 triángulos)
+        13, 14, 25,  // rayo 1
+        14, 15, 26,  // rayo 2
+        15, 16, 27,  // rayo 3
+        16, 17, 28,  // rayo 4
+        17, 18, 29,  // rayo 5
+        18, 19, 30,  // rayo 6
+        19, 20, 31,  // rayo 7
+        20, 21, 32,  // rayo 8
+        21, 22, 33,  // rayo 9
+        22, 23, 34,  // rayo 10
+        23, 24, 35,  // rayo 11
+        24, 13, 36   // rayo 12 (cierra)
     };
 
     // =========================================================
@@ -151,13 +196,12 @@ int main()
         ourShader.Use();
         glBindVertexArray(VAO);
 
-        // (Opcional) dibujar puntos para verificar
-        //glPointSize(6.0f);
-        glDrawArrays(GL_POINTS, 0, 16);
+        // Dibuja puntos para verificar (opcional)
+        // glPointSize(6.0f);
+        glDrawArrays(GL_POINTS, 0, 37);
 
-        // Dibuja todos los triángulos definidos en indices[]
-        // total indices = (12*3) + 3 = 39
-        glDrawElements(GL_TRIANGLES, 39, GL_UNSIGNED_INT, 0);
+        // Dibuja todos los triángulos: 72 indices
+        glDrawElements(GL_TRIANGLES, 72, GL_UNSIGNED_INT, 0);
 
         glBindVertexArray(0);
         glfwSwapBuffers(window);
@@ -167,6 +211,7 @@ int main()
     return EXIT_SUCCESS;
 }
 
+// Callback resize
 void resize(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
