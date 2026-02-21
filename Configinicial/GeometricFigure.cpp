@@ -1,6 +1,6 @@
 ﻿// Laura Reyes Carrillo
 // Sol con triangulos: dodecagono (12 triángulos) + 12 rayos
-// Colores por TRIÁNGULO (duplicando vértices) - Opción 2
+// Colores por TRIÁNGULO (duplicando vértices) 
 // Practica 2 - Computacion Grafica
 
 #include <iostream>
@@ -28,7 +28,7 @@ int main()
     // 2) Creamos la ventana
     GLFWwindow* window = glfwCreateWindow(
         WIDTH, HEIGHT,
-        "Reyes Carrillo Laura - Sol (dodecagono + 12 rayos) - Colores por triangulo",
+        "Reyes Carrillo Laura - Sol",
         NULL, NULL
     );
 
@@ -150,7 +150,6 @@ int main()
 
     // =========================================================
     // COLORES que se repiten: amarillo, naranja claro, naranja oscuro
-    // (puedes cambiar estos valores a tu gusto)
     // =========================================================
     Color3 palette[3] = {
         {1.0f, 1.0f, 0.0f},  // amarillo
