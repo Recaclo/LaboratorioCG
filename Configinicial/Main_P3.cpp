@@ -1,21 +1,19 @@
 //22 / Febrero / 2026
 //Reyes Carrillo Laura
 //320015764
+//Practica 3: Proyecciones, transformaciones y Shaders
+// Hacer la misma cantidad de cubos que la cantidad de letras en mi nombre 
 //Previo 3 Proyecciones, transformaciones y Shaders
-
 
 #include<iostream>
 
 //#define GLEW_STATIC
 
 #include <GL/glew.h>
-
 #include <GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 
 
 // Shaders
@@ -214,7 +212,6 @@ int main() {
 	// limites, primero es el izquierdo que va del 0, limite de la ventana 
 	//limite inferior y limite superior corresponde a lo alto de la pantalla 
 	//  0.1f, 1000.0f planos o distancias: desde donde vamos a comenzar a ver y hasta donde vamos a alcanar a ver 
-
 	while (!glfwWindowShouldClose(window))
 	{
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
@@ -225,11 +222,11 @@ int main() {
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 
-
 		// Draw our first triangle
 		// mandamos la inofrmacion a la parte del shader 
 		ourShader.Use();
 		// se crean 2 matrices model y view 
+		//Cubo 1 
 		glm::mat4 model=glm::mat4(1);
 		glm::mat4 view=glm::mat4(1);
 	
@@ -247,19 +244,40 @@ int main() {
 		glUniformMatrix4fv(projecLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		
 
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		// para crear otro elemento hacemos lo siguiente :
 		// creamos una matriz 
+		//Cubo 2
 		model = glm::mat4(1);
-		// le aplicamos traslacion
 		model = glm::translate(model, glm::vec3(5.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)); // use to compare orthographic and perspective projection
 		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//Cubo 3
+		model = glm::mat4(1); 
+		model = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 45.0f, glm::vec3(1.0f, 0.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//Cubo 4 
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.0f, 3.0f, 0.0f));
+		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//Cubo 5
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.0f, -3.0f, 0.0f));
+		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 
 		glBindVertexArray(0); 
 		
