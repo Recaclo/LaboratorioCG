@@ -1,7 +1,8 @@
 ﻿// Laura Reyes Carrillo
 // Sol con triangulos: dodecagono (12 triángulos) + 12 rayos
-// Colores por TRIÁNGULO (duplicando vértices) 
+// 20 de febrero de 2026
 // Practica 2 - Computacion Grafica
+//320015764
 
 #include <iostream>
 #include <vector>

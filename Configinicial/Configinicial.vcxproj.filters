@@ -18,8 +18,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeometricFigure.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Main_P3.cpp">
+      <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
