@@ -1,9 +1,9 @@
-//22 / Febrero / 2026
+//27/ Febrero / 2026
 //Reyes Carrillo Laura
 //320015764
-//Practica 3: Proyecciones, transformaciones y Shaders
+//Practica 3: Proyecciones y transformaciones
 // Hacer la misma cantidad de cubos que la cantidad de letras en mi nombre
-//Previo 3 Proyecciones, transformaciones y Shaders
+
 
 #include<iostream>
 
