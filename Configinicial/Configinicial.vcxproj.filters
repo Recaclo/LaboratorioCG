@@ -18,8 +18,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main_P3.cpp">
-      <Filter>Source Files\shader</Filter>
+    <ClCompile Include="Main_Modelado.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
