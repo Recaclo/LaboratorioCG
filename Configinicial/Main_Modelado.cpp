@@ -214,10 +214,58 @@ int main() {
 	    model = glm::mat4(1.0f);
 		// ejercicio para hacer una mesa con un cubo, se puede usar la misma informacion de los vertices del cubo pero se tiene que escalar en x y z para hacer la superficie de la mesa y luego se tiene que escalar en y para hacer las patas de la mesa
 		// definir el tama;o de la superficie de la mesa, usando scale
-		//model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f)); // ancho, grosor, profundidad de la mesa`
+		model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f)); // ancho, grosor, profundidad de la mesa
+		model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f)); // posicion de la mesa  en y , se movio un poco 
+
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		// dibujamos el cubo usando los vertices definidos anteriormente, cada cara del cubo tiene un color diferente para poder distinguirlas, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		// regresar la matriz de modelo a una matriz unitaria para dibujar las patas de la mesa
+		// Pata 1 
+		model = glm::mat4(1.0f);
+		// definir el tama;o de las patas de la mesa, usando scale
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		// definir la posicion de las patas de la mesa, usando translate
+		model = glm::translate(model, glm::vec3(2.9f,-0.6f, 1.9f)); // posicion de la pata de la mesa en x y z
+		//mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		// Pata 2
+		model = glm::mat4(1.0f);
+		// definir el tama;o de las patas de la mesa, usando scale
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		// definir la posicion de las patas de la mesa, usando translate
+		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f)); // posicion de la pata de la mesa en x y z
+		//mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Pata 3
+		model = glm::mat4(1.0f);
+		// definir el tama;o de las patas de la mesa, usando scale
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		// definir la posicion de las patas de la mesa, usando translate
+		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
+		// mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//DIBUJAMOS 
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		// Pata 4
+		model = glm::mat4(1.0f);
+		// definir el tama;o de las patas de la mesa, usando scale
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		// definir la posicion de las patas de la mesa, usando translate
+		model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
+		//mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
+
 		glBindVertexArray(0);
 
 				
