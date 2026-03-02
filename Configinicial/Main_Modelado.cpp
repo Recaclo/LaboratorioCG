@@ -41,7 +41,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Modelado geometrico", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Reyes Carrillo Laura Modelado geometrico", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -57,6 +57,7 @@ int main() {
 	}
 
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1); // VSync ON (bloquea a ~60 FPS)`1
 	glewExperimental = GL_TRUE;
 
 	//Verificación de errores de inicialización de glew
@@ -211,6 +212,9 @@ int main() {
 		glBindVertexArray(VAO);
 	
 	    model = glm::mat4(1.0f);
+		// ejercicio para hacer una mesa con un cubo, se puede usar la misma informacion de los vertices del cubo pero se tiene que escalar en x y z para hacer la superficie de la mesa y luego se tiene que escalar en y para hacer las patas de la mesa
+		// definir el tama;o de la superficie de la mesa, usando scale
+		//model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f)); // ancho, grosor, profundidad de la mesa`
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		// dibujamos el cubo usando los vertices definidos anteriormente, cada cara del cubo tiene un color diferente para poder distinguirlas, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -236,21 +240,21 @@ int main() {
 		 glfwSetWindowShouldClose(window, true);
 	 // si esta presionada la tecla d se mueve la camara a la derecha
 	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.08f;
+		 movX += 0.01f;
 	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.08f;
-	 if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
-		 movY += 0.08f;
-	 if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
-		 movY -= 0.08f;
+		 movX -= 0.01f;
+	 if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		 movY += 0.01f;
+	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		 movY -= 0.01f;
 	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.08f;
+		 movZ -= 0.01f;
 	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.08f;
+		 movZ += 0.01f;
 	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		 rot += 0.4f;
+		 rot += 0.1f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		 rot -= 0.4f;
+		 rot -= 0.1f;
  }
 
 
