@@ -1,5 +1,5 @@
-//Previo 4 Modelado geométrico
-// 1/Marzo/2026
+//Practica 4 Modelado geométrico
+// 3/Marzo/2026
 //Reyes Carrillo Laura
 //320015764
 
@@ -93,83 +93,143 @@ int main() {
 	float vertices[] = {
 		//Positions          //Colors rojo, verde, azul
 		//hay dos triangulos por cada cara del cubo, cada triangulo tiene 3 vertices, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,//Front
-		0.5f, -0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		-0.5f,  0.5f, 0.5f, 1.0f, 0.0f,0.0f,
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,
+		-0.5f, -0.5f, 0.5f, 0.90f, 0.15f, 0.15f,//Front
+		0.5f, -0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
+		0.5f,  0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
+		0.5f,  0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f,  0.5f, 0.5f, 0.90f, 0.15f, 0.15f,
+		-0.5f, -0.5f, 0.5f, 0.90f, 0.15f, 0.15f,
 		
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,//Back
-		 0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
+	    -0.5f, -0.5f,-0.5f, 0.90f, 0.15f, 0.15f,//Back
+		 0.5f, -0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
+		 0.5f,  0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
+		 0.5f,  0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
+	    -0.5f,  0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
+	    -0.5f, -0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
 		
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  -0.5f, 0.5f, 0.0f, 0.0f,1.0f,
+		 0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		 0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		 0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		 0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		 0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		 0.5f,  -0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
       
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
+		-0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
 		
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f,  0.5f, 0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
+		-0.5f, -0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
+		0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f, -0.5f,  0.5f, 0.90f, 0.15f, 0.15f,
+		-0.5f, -0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
 		
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
-		0.5f,  0.5f, -0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f,  0.5f, 1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
+		-0.5f,  0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
+		0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
+		0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
+		-0.5f,  0.5f,  0.5f, 0.90f, 0.15f, 0.15f,
+		-0.5f,  0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
+	};
+
+	// Cubo VERDE (misma geometría, distinto color)
+	float verticesGreen[] = {
+		//Positions          //Colors (verde)
+		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+
+		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+
+		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+
+		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+
+		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+
+		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
+		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
 	};
 
 
-
-
+	//modificar VAO para agragar el color verde 
 	GLuint VBO, VAO;
+	GLuint VBOg, VAOg; //color verde 
+
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	//glGenBuffers(1, &EBO);
 
+
+	glGenVertexArrays(1, &VAOg);//verde
+	glGenBuffers(1, &VBOg);//verde
+
+	//glGenBuffers(1, &EBO);
+	// CONFIG CUBO ROJO 
 	// Enlazar  Vertex Array Object
 	glBindVertexArray(VAO);
-
 	//2.- Copiamos nuestros arreglo de vertices en un buffer de vertices para que OpenGL lo use
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	// 3.Copiamos nuestro arreglo de indices en  un elemento del buffer para que OpenGL lo use
 	/*glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
-
 	// 4. Despues colocamos las caracteristicas de los vertices
-
 	//Posicion
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0);
 	glEnableVertexAttribArray(0);
-
 	//Color
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
-
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
 	glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
+	// CONFIG CUBO VERDE 
+	//
+	glBindVertexArray(VAOg);
+	glBindBuffer(GL_ARRAY_BUFFER, VBOg);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesGreen), verticesGreen, GL_STATIC_DRAW);
+	// Posición
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	// Color
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 	
+
+
+
 	glm::mat4 projection=glm::mat4(1);
 
 	projection = glm::perspective(glm::radians(45.0f), (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);//FOV, Radio de aspecto,znear,zfar
@@ -214,54 +274,55 @@ int main() {
 	    model = glm::mat4(1.0f);
 		// ejercicio para hacer una mesa con un cubo, se puede usar la misma informacion de los vertices del cubo pero se tiene que escalar en x y z para hacer la superficie de la mesa y luego se tiene que escalar en y para hacer las patas de la mesa
 		// definir el tama;o de la superficie de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f)); // ancho, grosor, profundidad de la mesa
-		model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f)); // posicion de la mesa  en y , se movio un poco 
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, grosor, profundidad de la mesa
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f)); // posicion de la mesa  en y , se movio un poco 
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		// dibujamos el cubo usando los vertices definidos anteriormente, cada cara del cubo tiene un color diferente para poder distinguirlas, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		// regresar la matriz de modelo a una matriz unitaria para dibujar las patas de la mesa
-		// Pata 1 
+		// 
+		// 
+		// Cubo 2  ROJO 
 		model = glm::mat4(1.0f);
 		// definir el tama;o de las patas de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, alto, profundidad de las patas de la mesa
 		// definir la posicion de las patas de la mesa, usando translate
-		model = glm::translate(model, glm::vec3(2.9f,-0.6f, 1.9f)); // posicion de la pata de la mesa en x y z
+		model = glm::translate(model, glm::vec3(0.0f,0.5f,0.0f)); // posicion de la pata de la mesa en x y z
 		//mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
-
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		// Pata 2
+
+		// Cubo VERDE 
+		glBindVertexArray(VAOg);
 		model = glm::mat4(1.0f);
 		// definir el tama;o de las patas de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, alto, profundidad de las patas de la mesa
 		// definir la posicion de las patas de la mesa, usando translate
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f)); // posicion de la pata de la mesa en x y z
-		//mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
-
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f)); // posicion de la pata de la mesa en x y z
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// Pata 3
-		model = glm::mat4(1.0f);
-		// definir el tama;o de las patas de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
-		// definir la posicion de las patas de la mesa, usando translate
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
-		// mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//DIBUJAMOS 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		// Pata 4
-		model = glm::mat4(1.0f);
-		// definir el tama;o de las patas de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
-		// definir la posicion de las patas de la mesa, usando translate
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
-		//mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
+		//// Pata 3
+		//model = glm::mat4(1.0f);
+		//// definir el tama;o de las patas de la mesa, usando scale
+		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		//// definir la posicion de las patas de la mesa, usando translate
+		//model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
+		//// mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		////DIBUJAMOS 
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//// Pata 4
+		//model = glm::mat4(1.0f);
+		//// definir el tama;o de las patas de la mesa, usando scale
+		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
+		//// definir la posicion de las patas de la mesa, usando translate
+		//model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
+		////mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
 
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
 
@@ -276,6 +337,9 @@ int main() {
 	}
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+
+	glDeleteVertexArrays(1, &VAOg);
+	glDeleteBuffers(1, &VBOg);
 
 
 	glfwTerminate();
