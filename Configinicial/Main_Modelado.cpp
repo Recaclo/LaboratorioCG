@@ -183,9 +183,56 @@ int main() {
 	};
 
 
+	float verticesGreenMedium[] = {
+		//Positions          //Colors (verde)
+		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+
+		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+
+		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+
+		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+
+		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+
+		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
+		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
+	};
+
+
 	//modificar VAO para agragar el color verde 
 	GLuint VBO, VAO;
 	GLuint VBOg, VAOg; //color verde 
+	GLuint VBOgm, VAOgm; //color verde medio 
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -193,6 +240,10 @@ int main() {
 
 	glGenVertexArrays(1, &VAOg);//verde
 	glGenBuffers(1, &VBOg);//verde
+
+	glGenVertexArrays(1, &VAOgm);//verde medio 
+	glGenBuffers(1, &VBOgm);//verde medio 
+
 
 	//glGenBuffers(1, &EBO);
 	// CONFIG CUBO ROJO 
@@ -227,6 +278,19 @@ int main() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	
+	// CONFIG CUBO VERDE MEDIO
+	// ====== VAO/VBO del cubo VERDE ======
+	glBindVertexArray(VAOgm);
+	glBindBuffer(GL_ARRAY_BUFFER, VBOgm);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesGreen), verticesGreen, GL_STATIC_DRAW);
+	// Posición
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	// Color
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
 
 
@@ -281,7 +345,8 @@ int main() {
 		// dibujamos el cubo usando los vertices definidos anteriormente, cada cara del cubo tiene un color diferente para poder distinguirlas, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		// regresar la matriz de modelo a una matriz unitaria para dibujar las patas de la mesa
-		// 
+
+
 		// 
 		// Cubo 2  ROJO 
 		model = glm::mat4(1.0f);
@@ -303,16 +368,21 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//// Pata 3
-		//model = glm::mat4(1.0f);
-		//// definir el tama;o de las patas de la mesa, usando scale
-		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
-		//// definir la posicion de las patas de la mesa, usando translate
-		//model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
-		//// mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		////DIBUJAMOS 
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Pata 3
+		glBindVertexArray(VAOg);
+		model = glm::mat4(1.0f);
+		// definir el tama;o de las patas de la mesa, usando scale
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, alto, profundidad de las patas de la mesa
+		// definir la posicion de las patas de la mesa, usando translate
+		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.5f)); // posicion de la pata de la mesa en x y z
+		// mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//DIBUJAMOS 
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
 		//// Pata 4
 		//model = glm::mat4(1.0f);
 		//// definir el tama;o de las patas de la mesa, usando scale
@@ -340,6 +410,9 @@ int main() {
 
 	glDeleteVertexArrays(1, &VAOg);
 	glDeleteBuffers(1, &VBOg);
+
+	glDeleteVertexArrays(1, &VAOgm);
+	glDeleteBuffers(1, &VBOgm);
 
 
 	glfwTerminate();
