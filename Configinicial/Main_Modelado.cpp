@@ -183,60 +183,227 @@ int main() {
         glBindVertexArray(VAO);
 
         // ===============================
-        // 4 CUBOS, 4 COLORES, SIN SHADERS
-        // ===============================
         // Usaremos color constante por cubo con el atributo 1:
         // - Desactivamos el arreglo de colores del VBO
         // - Forzamos un color con glVertexAttrib3f(1, r,g,b)
         glDisableVertexAttribArray(1);
-
+        //PETALOS 
+        // 
         // Cubo 1 - ROJO CLARO(abajo-izquierda)
         glVertexAttrib3f(1,1.00f, 0.55f, 0.55f);
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-1.2f, -0.8f, 0.0f)); // primero translate
-        model = glm::scale(model, glm::vec3(0.5f));                   // luego scale
+        model = glm::translate(model, glm::vec3(0.0f, 0.4f, 0.0f)); // primero translate
+        model = glm::scale(model, glm::vec3(0.2f));                   // luego scale
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // Cubo 2 - ROJO MEDIO (abajo-derecha)
-        glVertexAttrib3f(1,0.90f, 0.15f, 0.15f);
+        /*glVertexAttrib3f(1,0.90f, 0.15f, 0.15f);
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(1.2f, -0.8f, 0.0f));
         model = glm::scale(model, glm::vec3(0.5f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 36);*/
 
         // Cubo 3 - ROJO FUERTE (arriba-izquierda)
-        glVertexAttrib3f(1,0.65f, 0.00f, 0.00f);
+        /*glVertexAttrib3f(1,0.65f, 0.00f, 0.00f);
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-1.2f, 0.8f, 0.0f));
         model = glm::scale(model, glm::vec3(0.5f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 36);*/
+        
 
-        // Cubo 4 - VERDE CLARO  (arriba-derecha)
+        //Tallo 
+        // Cubo 1 - VERDE CLARO  
         glVertexAttrib3f(1, 0.60f, 0.95f, 0.60f);
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(1.2f, 0.8f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        // Cubo 5 - VERDE MEDIO (CENTRO)
+        // Cubo 2 - VERDE MEDIO (CENTRO) cubo central 
         glVertexAttrib3f(1, 0.20f, 0.70f, 0.20f);
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f));
+        model = glm::scale(model, glm::vec3(0.2f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        // Cubo 6 - VERDE FERTE (CENTRO)
+        // Cubo 3 - VERDE FUERTE (CENTRO)
         glVertexAttrib3f(1, 0.05f, 0.40f, 0.05f);
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f,-0.8f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f));
+        model = glm::translate(model, glm::vec3(0.0f,-0.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 4 - VERDE CLARO  
+        glVertexAttrib3f(1, 0.60f, 0.95f, 0.60f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo  5- VERDE FUERTE (CENTRO)
+        glVertexAttrib3f(1, 0.05f, 0.40f, 0.05f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -0.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 6 - VERDE MEDIO (CENTRO) cubo central 
+        glVertexAttrib3f(1, 0.20f, 0.70f, 0.20f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 7 - VERDE CLARO  
+        glVertexAttrib3f(1, 0.60f, 0.95f, 0.60f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo  8- VERDE FUERTE (CENTRO)
+        glVertexAttrib3f(1, 0.05f, 0.40f, 0.05f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -1.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 9 - VERDE CLARO  
+        glVertexAttrib3f(1, 0.60f, 0.95f, 0.60f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -1.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        //EN EL CUBO 6 INICIA PRIMERA HOJA 
+        glVertexAttrib3f(1, 0.30f, 0.80f, 0.30f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.2f, -0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.18f, 0.65f, 0.18f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.4f, -0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.15f, 0.55f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.6f, -0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.15f, 0.55f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.4f, -0.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.08f, 0.35f, 0.08f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.6f, -0.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.15f, 0.55f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.8f, -0.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.18f, 0.65f, 0.18f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.6f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.55f, 0.85f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.8f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
+        //SEGUNDA HOJA 
+        // Cubo 4 - VERDE CLARO  
+        glVertexAttrib3f(1, 0.18f, 0.65f, 0.18f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.10f, 0.50f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.03f, 0.30f, 0.03f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.15f, 0.55f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, -0.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.55f, 0.85f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, -0.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.15f, 0.55f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.8f, -0.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.10f, 0.50f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.03f, 0.30f, 0.03f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.8f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
 
         // (Opcional) Si luego quieres volver a usar color por vértice del VBO:
         glEnableVertexAttribArray(1);
@@ -270,7 +437,7 @@ void Inputs(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 
         movZ += 0.01f;
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) 
-        rot += 0.1f;
+        rot += 0.2f;
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) 
-        rot -= 0.1f;
+        rot -= 0.2f;
 }
