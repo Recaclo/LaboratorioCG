@@ -1,445 +1,276 @@
-//Practica 4 Modelado geométrico
+// Practica 4 Modelado geométrico
 // 3/Marzo/2026
-//Reyes Carrillo Laura
-//320015764
+// Reyes Carrillo Laura
+// 320015764
 
-
-#include<iostream>
+#include <iostream>
 
 //#define GLEW_STATIC
-
 #include <GL/glew.h>
-
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
-
 // Shaders
 #include "Shader.h"
 
-void Inputs(GLFWwindow *window);
-
+void Inputs(GLFWwindow* window);
 
 const GLint WIDTH = 800, HEIGHT = 600;
-float movX=0.0f;
-float movY=0.0f;
-float movZ=-5.0f;
+
+float movX = 0.0f;
+float movY = 0.0f;
+float movZ = -5.0f;
 float rot = 0.0f;
-//manipular la vista sin tener que cerrar y volver a ejecutar el programa, se puede usar las teclas w,s,a,d para mover la camara y las teclas i,j,k,l para rotar la camara
+
 int main() {
-	glfwInit();
-	//Verificación de compatibilidad 
-	// Set all the required options for GLFW
-	/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);*/
-
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Reyes Carrillo Laura Modelado geometrico", nullptr, nullptr);
-
-	int screenWidth, screenHeight;
-
-	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
-
-	//Verificación de errores de creacion  ventana
-	if (nullptr == window)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-
-		return EXIT_FAILURE;
-	}
-
-	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1); // VSync ON (bloquea a ~60 FPS)`1
-	glewExperimental = GL_TRUE;
-
-	//Verificación de errores de inicialización de glew
-
-	if (GLEW_OK != glewInit()) {
-		std::cout << "Failed to initialise GLEW" << std::endl;
-		return EXIT_FAILURE;
-	}
-
-
-	// Define las dimensiones del viewport
-	glViewport(0, 0, screenWidth, screenHeight);
-
-
-	// Setup OpenGL options
-	glEnable(GL_DEPTH_TEST);
-
-	// enable alpha support
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
-	// Build and compile our shader program
-	Shader ourShader("Shader/core.vs", "Shader/core.frag");
-
-
-	// Set up vertex data (and buffer(s)) and attribute pointers
-
-	
-
-	// use with Perspective Projection
-	//definicion de los vertices que definen el cubo , cada cara del cubo tiene un color diferente para poder distinguirlas, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
-	float vertices[] = {
-		//Positions          //Colors rojo, verde, azul
-		//hay dos triangulos por cada cara del cubo, cada triangulo tiene 3 vertices, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
-		-0.5f, -0.5f, 0.5f, 0.90f, 0.15f, 0.15f,//Front
-		0.5f, -0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
-		0.5f,  0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
-		0.5f,  0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f,  0.5f, 0.5f, 0.90f, 0.15f, 0.15f,
-		-0.5f, -0.5f, 0.5f, 0.90f, 0.15f, 0.15f,
-		
-	    -0.5f, -0.5f,-0.5f, 0.90f, 0.15f, 0.15f,//Back
-		 0.5f, -0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
-		 0.5f,  0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
-		 0.5f,  0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
-	    -0.5f,  0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
-	    -0.5f, -0.5f,-0.5f, 0.90f, 0.15f, 0.15f,
-		
-		 0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		 0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		 0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		 0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		 0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		 0.5f,  -0.5f, 0.5f,  0.90f, 0.15f, 0.15f,
-      
-		-0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		
-		-0.5f, -0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
-		0.5f, -0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		0.5f, -0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f, -0.5f,  0.5f, 0.90f, 0.15f, 0.15f,
-		-0.5f, -0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
-		
-		-0.5f,  0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
-		0.5f,  0.5f, -0.5f,  0.90f, 0.15f, 0.15f,
-		0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		0.5f,  0.5f,  0.5f,  0.90f, 0.15f, 0.15f,
-		-0.5f,  0.5f,  0.5f, 0.90f, 0.15f, 0.15f,
-		-0.5f,  0.5f, -0.5f, 0.90f, 0.15f, 0.15f,
-	};
-
-	// Cubo VERDE (misma geometría, distinto color)
-	float verticesGreen[] = {
-		//Positions          //Colors (verde)
-		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-
-		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-
-		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-
-		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-
-		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f, -0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f, -0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-
-		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		 0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f,  0.5f, 0.5f, 0.60f, 0.95f, 0.60f,
-		-0.5f,  0.5f,-0.5f, 0.60f, 0.95f, 0.60f,
-	};
-
-
-	float verticesGreenMedium[] = {
-		//Positions          //Colors (verde)
-		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-
-		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-
-		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-
-		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-
-		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f, -0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f, -0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-
-		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		 0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f,  0.5f, 0.5f, 0.20f, 0.70f, 0.20f,
-		-0.5f,  0.5f,-0.5f, 0.20f, 0.70f, 0.20f,
-	};
-
-
-	//modificar VAO para agragar el color verde 
-	GLuint VBO, VAO;
-	GLuint VBOg, VAOg; //color verde 
-	GLuint VBOgm, VAOgm; //color verde medio 
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-
-
-	glGenVertexArrays(1, &VAOg);//verde
-	glGenBuffers(1, &VBOg);//verde
-
-	glGenVertexArrays(1, &VAOgm);//verde medio 
-	glGenBuffers(1, &VBOgm);//verde medio 
-
-
-	//glGenBuffers(1, &EBO);
-	// CONFIG CUBO ROJO 
-	// Enlazar  Vertex Array Object
-	glBindVertexArray(VAO);
-	//2.- Copiamos nuestros arreglo de vertices en un buffer de vertices para que OpenGL lo use
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	// 3.Copiamos nuestro arreglo de indices en  un elemento del buffer para que OpenGL lo use
-	/*glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
-	// 4. Despues colocamos las caracteristicas de los vertices
-	//Posicion
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0);
-	glEnableVertexAttribArray(0);
-	//Color
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-	// CONFIG CUBO VERDE 
-	//
-	glBindVertexArray(VAOg);
-	glBindBuffer(GL_ARRAY_BUFFER, VBOg);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesGreen), verticesGreen, GL_STATIC_DRAW);
-	// Posición
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-	// Color
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-	
-	// CONFIG CUBO VERDE MEDIO
-	// ====== VAO/VBO del cubo VERDE ======
-	glBindVertexArray(VAOgm);
-	glBindBuffer(GL_ARRAY_BUFFER, VBOgm);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesGreen), verticesGreen, GL_STATIC_DRAW);
-	// Posición
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-	// Color
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
-
-
-	glm::mat4 projection=glm::mat4(1);
-
-	projection = glm::perspective(glm::radians(45.0f), (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);//FOV, Radio de aspecto,znear,zfar
-	//projection = glm::ortho(0.0f, (GLfloat)screenWidth, 0.0f, (GLfloat)screenHeight, 0.1f, 1000.0f);//Izq,Der,Fondo,Alto,Cercania,Lejania
-	while (!glfwWindowShouldClose(window))
-	{
-		
-		Inputs(window);
-		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-		glfwPollEvents();
-
-		// Render
-		// Clear the colorbuffer
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-
-
-		// Draw our first triangle
-		ourShader.Use();
-		// Create transformations
-		// Herramoentas de transformacion de la camara, se pueden usar para mover la camara y rotarla, se pueden usar las teclas w,s,a,d para mover la camara y las teclas i,j,k,l para rotar la camara
-		glm::mat4 model=glm::mat4(1);
-		glm::mat4 view=glm::mat4(1);
-	
-		// se manda el valor de movX, movY, movZ y rot a la matriz de vista para poder mover y rotar la camara, se pueden usar las teclas w,s,a,d para mover la camara y las teclas i,j,k,l para rotar la camara
-		view = glm::translate(view, glm::vec3(movX,movY, movZ));
-		// se manda rot que es la rotacion en y 
-		view = glm::rotate(view, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
-		// se manda la informacion a los shaders por medio de las variables uniform
-		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
-		GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
-		GLint projecLoc = glGetUniformLocation(ourShader.Program, "projection");
-
-		//mandamos la informacion de las matrices a los shaders por medio de las variables uniform
-		glUniformMatrix4fv(projecLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	
-
-		glBindVertexArray(VAO);
-	
-	    model = glm::mat4(1.0f);
-		// ejercicio para hacer una mesa con un cubo, se puede usar la misma informacion de los vertices del cubo pero se tiene que escalar en x y z para hacer la superficie de la mesa y luego se tiene que escalar en y para hacer las patas de la mesa
-		// definir el tama;o de la superficie de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, grosor, profundidad de la mesa
-		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f)); // posicion de la mesa  en y , se movio un poco 
-
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		// dibujamos el cubo usando los vertices definidos anteriormente, cada cara del cubo tiene un color diferente para poder distinguirlas, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		// regresar la matriz de modelo a una matriz unitaria para dibujar las patas de la mesa
-
-
-		// 
-		// Cubo 2  ROJO 
-		model = glm::mat4(1.0f);
-		// definir el tama;o de las patas de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, alto, profundidad de las patas de la mesa
-		// definir la posicion de las patas de la mesa, usando translate
-		model = glm::translate(model, glm::vec3(0.0f,0.5f,0.0f)); // posicion de la pata de la mesa en x y z
-		//mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		// Cubo VERDE 
-		glBindVertexArray(VAOg);
-		model = glm::mat4(1.0f);
-		// definir el tama;o de las patas de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, alto, profundidad de las patas de la mesa
-		// definir la posicion de las patas de la mesa, usando translate
-		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f)); // posicion de la pata de la mesa en x y z
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-		// Pata 3
-		glBindVertexArray(VAOg);
-		model = glm::mat4(1.0f);
-		// definir el tama;o de las patas de la mesa, usando scale
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // ancho, alto, profundidad de las patas de la mesa
-		// definir la posicion de las patas de la mesa, usando translate
-		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.5f)); // posicion de la pata de la mesa en x y z
-		// mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//DIBUJAMOS 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-
-		//// Pata 4
-		//model = glm::mat4(1.0f);
-		//// definir el tama;o de las patas de la mesa, usando scale
-		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); // ancho, alto, profundidad de las patas de la mesa
-		//// definir la posicion de las patas de la mesa, usando translate
-		//model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); // posicion de la pata de la mesa en x y z
-		////mandar la informacion de la matriz de modelo a los shaders por medio de la variable uniform
-
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-
-
-		glBindVertexArray(0);
-
-				
-
-		// Swap the screen buffers
-		glfwSwapBuffers(window);
-	
-	}
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-
-	glDeleteVertexArrays(1, &VAOg);
-	glDeleteBuffers(1, &VBOg);
-
-	glDeleteVertexArrays(1, &VAOgm);
-	glDeleteBuffers(1, &VBOgm);
-
-
-	glfwTerminate();
-	return EXIT_SUCCESS;
- }
- // funcion que maneja la entrada del teclado para mover y rotar la camara, se pueden usar las teclas w,s,a,d para mover la camara y las teclas i,j,k,l para rotar la camara
- void Inputs(GLFWwindow *window) {
-	 //si esta presionada la tecla escape se cierra la ventana
-	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
-		 glfwSetWindowShouldClose(window, true);
-	 // si esta presionada la tecla d se mueve la camara a la derecha
-	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.01f;
-	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.01f;
-	 if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		 movY += 0.01f;
-	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		 movY -= 0.01f;
-	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.01f;
-	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.01f;
-	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		 rot += 0.1f;
-	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		 rot -= 0.1f;
- }
-
-
+    glfwInit();
+
+    //manipular la vista sin tener que cerrar y volver a ejecutar el programa, se puede usar las teclas w,s,a,d para mover la camara y las teclas i,j,k,l para rotar la camara
+    // (Si tienes problemas de compatibilidad, descomenta los window hints de versión)
+    /*
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    */
+
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Reyes Carrillo Laura Modelado geometrico", nullptr, nullptr);
+
+    int screenWidth, screenHeight;
+    glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
+
+    if (nullptr == window) {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        return EXIT_FAILURE;
+    }
+
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1); // VSync ON (~60 FPS)
+    glewExperimental = GL_TRUE;
+
+    if (GLEW_OK != glewInit()) {
+        std::cout << "Failed to initialise GLEW" << std::endl;
+        return EXIT_FAILURE;
+    }
+    // Define las dimensiones del viewport
+    glViewport(0, 0, screenWidth, screenHeight);
+
+    // OpenGL options
+    glEnable(GL_DEPTH_TEST);
+
+    // Alpha support (por si luego dibujas cosas con transparencia)
+    //enable alpha support
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    // Build and compile our shader program
+    Shader ourShader("Shader/core.vs", "Shader/core.frag");
+    // Set up vertex data (and buffer(s)) and attribute pointers
+    // / use with Perspective Projection //definicion de los vertices que definen el cubo , cada cara del cubo tiene un color diferente para poder distinguirlas, cada vertice tiene 6 atributos: 3 para la posicion y 3 para el color
+    // Cubo: 36 vertices (12 triángulos). Cada vértice: 3 pos + 3 color (aunque luego vamos a usar color constante)
+    float vertices[] = {
+
+        // Front
+        -0.5f, -0.5f,  0.5f,
+         0.5f, -0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,
+
+        // Back
+        -0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        // Right
+         0.5f, -0.5f,  0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f,  0.5f,
+         0.5f, -0.5f,  0.5f,
+
+         // Left
+         -0.5f,  0.5f,  0.5f,
+         -0.5f,  0.5f, -0.5f,
+         -0.5f, -0.5f, -0.5f,
+         -0.5f, -0.5f, -0.5f,
+         -0.5f, -0.5f,  0.5f,
+         -0.5f,  0.5f,  0.5f,
+
+         // Bottom
+         -0.5f, -0.5f, -0.5f,
+          0.5f, -0.5f, -0.5f,
+          0.5f, -0.5f,  0.5f,
+          0.5f, -0.5f,  0.5f,
+         -0.5f, -0.5f,  0.5f,
+         -0.5f, -0.5f, -0.5f,
+
+         // Top
+         -0.5f,  0.5f, -0.5f,
+          0.5f,  0.5f, -0.5f,
+          0.5f,  0.5f,  0.5f,
+          0.5f,  0.5f,  0.5f,
+         -0.5f,  0.5f,  0.5f,
+         -0.5f,  0.5f, -0.5f
+    };
+
+    GLuint VBO, VAO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    //glGenBuffers(1, &EBO);
+    // Enlazar Vertex Array Object
+    glBindVertexArray(VAO);
+    //2.- Copiamos nuestros arreglo de vertices en un buffer de vertices para que OpenGL lo use
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    // 3.Copiamos nuestro arreglo de indices en un elemento del buffer para que OpenGL lo use
+    /*glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
+    // 4. Despues colocamos las caracteristicas de los vertices
+    // Posición (location = 0) el color lo mandamos despues 
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);// Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
+
+    // Matriz de proyección
+    glm::mat4 projection = glm::perspective(
+        glm::radians(45.0f),
+        (GLfloat)screenWidth / (GLfloat)screenHeight,
+        0.1f, 100.0f
+    );
+
+
+    while (!glfwWindowShouldClose(window)) {
+        Inputs(window);
+        // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+        glfwPollEvents();
+        // Render 
+        // Clear the colorbuffer
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // Draw our first triangle
+        ourShader.Use();
+
+        // View (cámara)
+        // Create transformations 
+        // Herramoentas de transformacion de la camara, se pueden usar para mover la camara y rotarla, se pueden usar las teclas w,s,a,d para mover la camara 
+        glm::mat4 view = glm::mat4(1.0f);
+        // se manda el valor de movX, movY, movZ y rot a la matriz de vista para poder mover y rotar la camara, se pueden usar las teclas w,s,a,d para mover la camara 
+        view = glm::translate(view, glm::vec3(movX, movY, movZ));
+        // se manda rot que es la rotacion en y
+        view = glm::rotate(view, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
+
+        // Uniform locations
+        // se manda la informacion a los shaders por medio de las variables uniform
+        GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
+        GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
+        GLint projecLoc = glGetUniformLocation(ourShader.Program, "projection");
+        //mandamos la informacion de las matrices a los shaders por medio de las variables uniform
+        glUniformMatrix4fv(projecLoc, 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+        glBindVertexArray(VAO);
+
+        // ===============================
+        // 4 CUBOS, 4 COLORES, SIN SHADERS
+        // ===============================
+        // Usaremos color constante por cubo con el atributo 1:
+        // - Desactivamos el arreglo de colores del VBO
+        // - Forzamos un color con glVertexAttrib3f(1, r,g,b)
+        glDisableVertexAttribArray(1);
+
+        // Cubo 1 - ROJO CLARO(abajo-izquierda)
+        glVertexAttrib3f(1,1.00f, 0.55f, 0.55f);
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-1.2f, -0.8f, 0.0f)); // primero translate
+        model = glm::scale(model, glm::vec3(0.5f));                   // luego scale
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 2 - ROJO MEDIO (abajo-derecha)
+        glVertexAttrib3f(1,0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(1.2f, -0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 3 - ROJO FUERTE (arriba-izquierda)
+        glVertexAttrib3f(1,0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-1.2f, 0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 4 - VERDE CLARO  (arriba-derecha)
+        glVertexAttrib3f(1, 0.60f, 0.95f, 0.60f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(1.2f, 0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 5 - VERDE MEDIO (CENTRO)
+        glVertexAttrib3f(1, 0.20f, 0.70f, 0.20f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // Cubo 6 - VERDE FERTE (CENTRO)
+        glVertexAttrib3f(1, 0.05f, 0.40f, 0.05f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f,-0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // (Opcional) Si luego quieres volver a usar color por vértice del VBO:
+        glEnableVertexAttribArray(1);
+
+        glBindVertexArray(0);
+
+        glfwSwapBuffers(window);
+    }
+
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+
+    glfwTerminate();
+    return EXIT_SUCCESS;
+}
+
+// Función para mover y rotar la cámara
+void Inputs(GLFWwindow* window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        movX += 0.01f;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) 
+        movX -= 0.01f;
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) 
+        movY += 0.01f;
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) 
+        movY -= 0.01f;
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) 
+        movZ -= 0.01f;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 
+        movZ += 0.01f;
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) 
+        rot += 0.1f;
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) 
+        rot -= 0.1f;
+}
