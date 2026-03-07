@@ -197,22 +197,336 @@ int main() {
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        // Cubo 2 - ROJO MEDIO (abajo-derecha)
-        /*glVertexAttrib3f(1,0.90f, 0.15f, 0.15f);
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(1.2f, -0.8f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f));
+        model = glm::translate(model, glm::vec3(0.2f, 0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glDrawArrays(GL_TRIANGLES, 0, 36);*/
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.80f, 0.10f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, 0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        //PROFUNDIDAD DE FRENTE 
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, 0.4f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 0.4f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.4f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.2f, 0.4f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        //PROFUNDIDAD ATRAS 
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, 0.4f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 0.4f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.4f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.2f, 0.4f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // NIVEL 2 
+        //PROFUNDIDAD DE FRENTE 
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, 0.6f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 0.6f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.2f, 0.6f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
+
+        // Cubo 2 - ROJO MEDIO (abajo-derecha)
+        glVertexAttrib3f(1,0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // Cubo 3 - ROJO FUERTE (arriba-izquierda)
-        /*glVertexAttrib3f(1,0.65f, 0.00f, 0.00f);
+        glVertexAttrib3f(1,0.65f, 0.00f, 0.00f);
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-1.2f, 0.8f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glDrawArrays(GL_TRIANGLES, 0, 36);*/
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        //Cubo 4 - Rojo fuerte CUBO CENTRAL 
+        glVertexAttrib3f(1, 0.45f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.45f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 1.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.45f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 1.2f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.45f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         
+
+        // ===============================
+// PETALOS EXTRA PARA CERRAR LA ROSA
+// ===============================
+
+// LATERAL DERECHO NIVEL MEDIO
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.4f, 0.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.4f, 0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.80f, 0.10f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.4f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // LATERAL IZQUIERDO NIVEL MEDIO
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, 0.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, 0.8f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.80f, 0.10f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // PARTE SUPERIOR
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 1.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 1.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.2f, 1.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // CUBO SUPERIOR CENTRAL
+        glVertexAttrib3f(1, 0.80f, 0.10f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 1.6f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // VOLUMEN FRENTE DERECHO
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.4f, 0.8f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.2f, 1.0f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // VOLUMEN FRENTE IZQUIERDO
+        glVertexAttrib3f(1, 1.00f, 0.55f, 0.55f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, 0.8f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.95f, 0.40f, 0.40f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, 1.0f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // VOLUMEN ATRAS DERECHO
+        glVertexAttrib3f(1, 0.80f, 0.10f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.4f, 0.8f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.2f, 1.0f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // VOLUMEN ATRAS IZQUIERDO
+        glVertexAttrib3f(1, 0.80f, 0.10f, 0.10f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, 0.8f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.4f, 1.0f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        // PETALOS INFERIORES QUE "ENVUELVEN" EL CENTRO
+        glVertexAttrib3f(1, 0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 0.8f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.90f, 0.15f, 0.15f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.8f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.2f, 0.8f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glVertexAttrib3f(1, 0.65f, 0.00f, 0.00f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.8f, -0.2f));
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
+
+
+
+
 
         //Tallo 
         // Cubo 1 - VERDE CLARO  
@@ -437,7 +751,7 @@ void Inputs(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 
         movZ += 0.01f;
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) 
-        rot += 0.2f;
+        rot += 0.3f;
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) 
-        rot -= 0.2f;
+        rot -= 0.3f;
 }
