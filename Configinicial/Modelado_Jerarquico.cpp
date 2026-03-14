@@ -251,7 +251,7 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);//A
 
 
-
+//======================================================================================
 
 
 		//Model dedo A
@@ -296,7 +296,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo2
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(1.0f, 0.5f, 0.0f);
+		color = glm::vec3(0.0f, 1.0f, 1.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -307,7 +307,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo2), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.5f, 0.5f, 0.0f);
+		color = glm::vec3(1.0f, 0.0f, 1.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -318,7 +318,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo1C), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.0f, 0.5f, 0.5f);
+		color = glm::vec3(1.0f, 1.0f, 0.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -332,7 +332,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo2
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.5f, 0.0f, 0.5f);
+		color = glm::vec3(0.0f, 1.0f, 1.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -343,7 +343,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo2), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.5f, 0.5f, 0.5f);
+		color = glm::vec3(1.0f, 0.0f, 1.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -353,7 +353,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo1C), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.0f, 0.5f, 0.0f);
+		color = glm::vec3(1.0f, 1.0f, 0.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -368,7 +368,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo2
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.5f, 0.0f, 0.0f);
+		color = glm::vec3(0.0f, 1.0f, 1.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -378,7 +378,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo2), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.5f, 0.5f, 0.0f);
+		color = glm::vec3(1.0f, 0.0f, 1.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -388,7 +388,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(dedo1C), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.0f, 0.5f, 0.5f);
+		color = glm::vec3(1.0f, 1.0f, 0.0f);
 		// se manda a los shader pro el uniform
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -407,7 +407,7 @@ int main() {
 		modelTemp = model = glm::translate(model, glm::vec3(0.35f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.7f, 0.4f, 0.3f));
 
-		color = glm::vec3(0.8f, 0.4f, 0.1f); // Color de la base (Naranja oscuro)
+		color = glm::vec3(0.0f, 1.0f, 1.0f); // Color de la base (Naranja oscuro)
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); // <--- Se envía color de la base
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -418,7 +418,7 @@ int main() {
 		model = glm::translate(model, glm::vec3(0.3f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.6f, 0.35f, 0.3f));
 
-		color = glm::vec3(1.0f, 1.0f, 0.0f); // Color de la punta (Amarillo, por ejemplo)
+		color = glm::vec3(1.0f, 0.0f, 1.0f); // Color de la punta (Amarillo, por ejemplo)
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); // <--- SE ENVÍA EL NUEVO COLOR AQUÍ
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
