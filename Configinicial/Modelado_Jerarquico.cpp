@@ -487,5 +487,9 @@ void Inputs(GLFWwindow* window) {
 		pulgarA += 0.18f;
 	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
 		pulgarA -= 0.18f;
+	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+		pulgarB += 0.18f;
+	if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+		pulgarB -= 0.18f;
 
 }
