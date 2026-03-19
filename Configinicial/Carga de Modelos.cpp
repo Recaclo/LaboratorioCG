@@ -109,6 +109,8 @@ int main( )
 	// a su ves dentro del material esta la ruta y el nombre de la textura a cargar
     // y como todo esta en la misma carpeta no importa 
 	Model Dog((char*)"Models/RedDog.obj");
+    Model Temple((char*)"Models/Japanese_Temple.obj");
+	Model Tori((char*)"Models/torii.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -136,17 +138,36 @@ int main( )
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
         // Draw the loaded model
+        // Dibujo del templo
 		//inicailizamos la matriz de modelo con la matriz identidad para que el modelo se dibuje sin ninguna transformación
-        glm::mat4 model(1);
+        glm::mat4 model(1);// reinicia a identidad
+        model = glm::translate(model, glm::vec3(0.0f, -5.0f, -15.0f)); // Z negativo para alejarlo
+        model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f)); // Ajusta el tamaño si es necesario
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		//dibujamos el modelo con el shader que hemos creado y cargado
-		Dog.Draw(shader);
+        Temple.Draw(shader);
 
-		// aplicamos herramientas de transformacion para mover el modelo a la posicion que queremos
-		model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));	//If the model is too big, scale it down
-		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1,GL_FALSE, glm::value_ptr(model));
-		Dog.Draw(shader);
+
+        //Dibujo de la puerta tori
+        model = glm::mat4(1.0f);
+		//dibujamos el modelo con el shader que hemos creado y cargado
+		model = glm::translate(model, glm::vec3(0.0f, -5.0f, 0.0f)); // En el origen o cerca
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		Tori.Draw(shader);
+
+        //Dibujo del perrito 
+        model = glm::mat4(1.0f);
+        //dibujamos el modelo con el shader que hemos creado y cargado
+        model = glm::translate(model, glm::vec3(0.0f, -5.0f, 5.0f)); // En el origen o cerca
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f)); // Escalarlo si el modelo es muy grande
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        Dog.Draw(shader);
+        
+
+		//// aplicamos herramientas de transformacion para mover el modelo a la posicion que queremos
+		//model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f)); // Translate it down a bit so it's at the center of the scene
+		//model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));	//If the model is too big, scale it down
+		//glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1,GL_FALSE, glm::value_ptr(model));
+		//Dog.Draw(shader);
 
 
         // Swap the buffers
