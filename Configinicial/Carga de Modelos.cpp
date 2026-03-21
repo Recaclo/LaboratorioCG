@@ -174,12 +174,10 @@ int main( )
 		Shire.Draw(shader);
 
         //Dibujo del arbol
-        GLint colorLoc = glGetUniformLocation(shader.Program, "color");
         model = glm::mat4(1.0f);
         //dibujamos el modelo con el shader que hemos creado y cargado
         model = glm::translate(model, glm::vec3(5.0f, -5.0f, 0.0f)); // En el origen o cerca
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f)); // Escalarlo si el modelo es muy grande
-        glUniform3f(colorLoc, 1.0f, 1.0f, 1.0f); // Blanco para que se vea el color base
+        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f)); // Escalarlo si el modelo es muy grande
 		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		Tree.Draw(shader);
 
