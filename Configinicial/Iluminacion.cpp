@@ -262,7 +262,7 @@ int main()
 
         // Draw the loaded model
         glm::mat4 model(1.0f);
-        model = glm::translate(model, glm::vec3(-1.5f, -1.0f, -8.0f));
+        model = glm::translate(model, glm::vec3(1.0f, 1.0f, 1.0f)); //checar
         model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         red_dog.Draw(lightingShader);
@@ -270,7 +270,7 @@ int main()
 
 		// Draw the loaded model
         glm::mat4 model2(1.0f);
-        model2 = glm::translate(model2, glm::vec3(2.0f, -1.5f, -10.0f));
+		model2 = glm::translate(model2, glm::vec3(2.0f, 1.0f, 1.0f));//checar
         model2 = glm::scale(model2, glm::vec3(0.5f, 0.5f, 0.5f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
         cat.Draw(lightingShader);
