@@ -44,10 +44,11 @@ bool firstMouse = true;
 
 //Posicion de la luz 
 // Light attributes
-glm::vec3 lightPos(0.5f, 0.5f, 2.5f);
-glm::vec3 lightPos2(-2.0f, 1.5f, 1.0f);
+glm::vec3 lightPos(1.0f, 1.5f, -6.5f);
+glm::vec3 lightPos2(2.0f, 1.5f, -8.5f);
 // Variables para animacion de la luz
-float movelightPos = 0.0f;
+float movelightPos1 = 0.0f;
+float movelightPos2 = 0.0f;
 // Deltatime
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
@@ -221,12 +222,12 @@ int main()
         
         GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light1.position"),
-            lightPos.x + movelightPos,
-            lightPos.y + movelightPos,
-            lightPos.z + movelightPos);
+            lightPos.x + movelightPos1,
+            lightPos.y,
+            lightPos.z);
 
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"),
-            lightPos2.x,
+            lightPos2.x + movelightPos2,
             lightPos2.y,
             lightPos2.z);
         glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
@@ -262,7 +263,7 @@ int main()
 
         // Draw the loaded model
         glm::mat4 model(1.0f);
-        model = glm::translate(model, glm::vec3(1.0f, 1.0f, 1.0f)); //checar
+        model = glm::translate(model, glm::vec3(-1.5f, -1.0f, -8.0f)); //checar
         model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         red_dog.Draw(lightingShader);
@@ -270,7 +271,7 @@ int main()
 
 		// Draw the loaded model
         glm::mat4 model2(1.0f);
-		model2 = glm::translate(model2, glm::vec3(3.0f, -0.5f, 1.0f));//checar
+		model2 = glm::translate(model2, glm::vec3(2.0f, -1.5f, -10.0f));//checar
         model2 = glm::scale(model2, glm::vec3(0.5f, 0.5f, 0.5f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
         cat.Draw(lightingShader);
@@ -286,14 +287,14 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos + movelightPos);
+        model = glm::translate(model, glm::vec3(lightPos.x + movelightPos1, lightPos.y, lightPos.z));
         model = glm::scale(model, glm::vec3(0.3f));
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 		// Lamp 2
         glm::mat4 lampModel2(1.0f);
-        lampModel2 = glm::translate(lampModel2, lightPos2);
+        lampModel2 = glm::translate(lampModel2, glm::vec3(lightPos2.x + movelightPos2, lightPos2.y, lightPos2.z));
 		lampModel2 = glm::scale(lampModel2, glm::vec3(0.3f));
 		glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(lampModel2));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -366,14 +367,22 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 
     if (keys[GLFW_KEY_O])
     {
-       
-        movelightPos += 0.1f;
+        movelightPos1 += 0.1f;
     }
 
     if (keys[GLFW_KEY_L])
     {
-        
-        movelightPos -= 0.1f;
+        movelightPos1 -= 0.1f;
+    }
+
+    if (keys[GLFW_KEY_K])
+    {
+        movelightPos2 += 0.1f;
+    }
+
+    if (keys[GLFW_KEY_J])
+    {
+        movelightPos2 -= 0.1f;
     }
 
 
