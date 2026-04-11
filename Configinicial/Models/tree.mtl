@@ -10,7 +10,7 @@ newmtl wire_006134006
 	Ka 1.0000 0.7500 0.8000  # Color Rosa claro (Ambient)
 	Kd 1.0000 0.7500 0.8000  # Color Rosa claro (Diffuse)
 	Ks 0.3500 0.3500 0.3500
-	map_Kd brown.jpg
+	map_Kd Brown.png
 
 
 newmtl wire_134110008
