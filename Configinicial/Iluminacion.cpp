@@ -269,7 +269,7 @@ int main()
         }
         else
         {
-            glUniform3f(glGetUniformLocation(lightingShader.Program, "light1.ambient"), 0.0f, 0.0f, 0.0f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light1.ambient"), 0.03f, 0.03f, 0.05f);
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light1.diffuse"), 0.0f, 0.0f, 0.0f);
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light1.specular"), 0.0f, 0.0f, 0.0f);
         }
@@ -277,9 +277,9 @@ int main()
         // Luz 2 = LUNA
         if (moonVisible)
         {
-            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.01f, 0.01f, 0.05f);
-            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.08f, 0.12f, 0.25f);
-            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.10f, 0.10f, 0.20f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.12f, 0.12f, 0.20f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.25f, 0.30f, 0.45f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.20f, 0.20f, 0.30f);
         }
         else
         {
