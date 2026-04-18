@@ -13,4 +13,4 @@ newmtl Material__28
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
 	map_Ka ball.png
-	map_Kd ball.png
+	map_Kd yellow.png
