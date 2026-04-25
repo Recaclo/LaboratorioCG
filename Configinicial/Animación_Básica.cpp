@@ -1,7 +1,7 @@
 // Laura Reyes Carrillo
-// Fuentes de luz
-// 19 de Abril de 2026
-// Previo 10   
+// Animacion Basica
+// 24 de Abril de 2026
+// Practica 10   
 // 320015764
 
 #include <iostream>
@@ -107,6 +107,7 @@ float vertices[] = {
 glm::vec3 Light1 = glm::vec3(0);
 //Anim
 float rotBall = 0;
+float rotDog = 0.0f;
 bool AnimBall = false;
 
 // animacion vertical
@@ -304,8 +305,11 @@ int main()
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		Piso.Draw(lightingShader);
-
+		//modelo del perro animado
 		model = glm::mat4(1);
+		model = glm::rotate(model, glm::radians(rotDog), glm::vec3(0.0f, 1.0f, 0.0f));
+		float radio = 2.0f;
+		model = glm::translate(model, glm::vec3(radio, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		Dog.Draw(lightingShader);
@@ -317,10 +321,11 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
 		// mover solo en Y respecto a su posicion inicial
-		model = glm::translate(model, glm::vec3(0.0f, movBallY, 0.0f));
-
+		//model = glm::translate(model, glm::vec3(0.0f, movBallY, 0.0f));
 		//rotacion antes de cargar el modelo 
+		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(radio, movBallY, 0.0f));
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	    Ball.Draw(lightingShader); 
@@ -477,6 +482,7 @@ void Animation() {
 	if (AnimBall)
 	{
 		rotBall += 0.2f;
+		rotDog -= 0.2f;
 		printf("%f", rotBall);
 	}
 	else
