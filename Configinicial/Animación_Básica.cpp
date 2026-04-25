@@ -110,6 +110,11 @@ float rotBall = 0;
 float rotDog = 0.0f;
 bool AnimBall = false;
 
+//animacion del perro y la esfera
+bool golpeando = false;
+float tiempoGolpe = 0.0f;
+float impulsoBall = 0.0f;
+
 // animacion vertical
 bool AnimBallVertical = false;
 float movBallY = 0.0f;        // inicia en 0 porque esa ya es su posicion inicial
@@ -305,11 +310,19 @@ int main()
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		Piso.Draw(lightingShader);
+		
+
+
 		//modelo del perro animado
 		model = glm::mat4(1);
 		model = glm::rotate(model, glm::radians(rotDog), glm::vec3(0.0f, 1.0f, 0.0f));
 		float radio = 2.0f;
 		model = glm::translate(model, glm::vec3(radio, 0.0f, 0.0f));
+		if (golpeando)
+		{
+			float inclinacion = 20.0f * sin(tiempoGolpe * 3.1416f);
+			model = glm::rotate(model, glm::radians(inclinacion), glm::vec3(1.0f, 0.0f, 0.0f));
+		}
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		Dog.Draw(lightingShader);
@@ -325,7 +338,9 @@ int main()
 		//rotacion antes de cargar el modelo 
 		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::translate(model, glm::vec3(radio, movBallY, 0.0f));
+		model = glm::translate(model, glm::vec3(radio, movBallY + impulsoBall, 0.0f));
+
+
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	    Ball.Draw(lightingShader); 
@@ -481,19 +496,52 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void Animation() {
 	if (AnimBall)
 	{
-		rotBall += 0.2f;
-		rotDog -= 0.2f;
-		printf("%f", rotBall);
+		float velocidadRot = 50.0f; // grados por segundo
+
+		rotBall += velocidadRot * deltaTime;
+		rotDog -= velocidadRot * deltaTime;
+		//printf("%f", rotBall);
+		// Calculamos diferencia entre ángulos
+		float diferencia = abs(rotBall - rotDog);
+
+		// Normalizamos para que no crezca infinito
+		diferencia = fmod(diferencia, 360.0f);
+		// Cuando están casi en el mismo punto del círculo
+		if ((diferencia < 5.0f || diferencia > 355.0f) && !golpeando)
+		{
+			golpeando = true;
+			tiempoGolpe = 0.0f;
+			impulsoBall = 0.6f;   // fuerza del golpe
+		}
 	}
 	else
 	{
 		//rotBall = 0.0f;
 	}
+	// Animación del golpe
+		if (golpeando)
+		{
+			float velocidadGolpe = 3.0f;
+			tiempoGolpe += velocidadGolpe * deltaTime;
+
+			// La esfera sube rápido y luego baja
+			impulsoBall = 0.6f * sin(tiempoGolpe * 3.14f);
+
+			if (tiempoGolpe >= 1.0f)
+			{
+				golpeando = false;
+				impulsoBall = 0.0f;
+			}
+		}
+
+
+
 	if (AnimBallVertical)
 	{
 		if (ballSubiendo)
 		{
-			movBallY += 0.001f;
+			float velocidadY = 1.0f;
+			movBallY += velocidadY * deltaTime;
 
 			if (movBallY >= limiteSuperiorBall)
 			{
@@ -503,7 +551,8 @@ void Animation() {
 		}
 		else
 		{
-			movBallY -= 0.001f ;
+			float velocidadY = 1.0f;
+			movBallY -= velocidadY * deltaTime;
 
 			if (movBallY <= limiteInferiorBall)
 			{
