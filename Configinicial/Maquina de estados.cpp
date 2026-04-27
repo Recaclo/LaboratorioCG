@@ -528,24 +528,38 @@ void Animation() {
 		//printf("%f", rotBall);
 	}
 	if (dogAnim == 1) { //walk animation
-		if (!step) {
-			FLegs += 0.3f;
-			RLegs += 0.3f;
-			head += 0.3f;
-			tail -= 0.3f;
-			if (RLegs > 15.0f) 
-				step = true;
+		float limitePiso = 2.4f;
+		if (dogPos.z < limitePiso) {
+			//caminar
+			if (!step) {
+				FLegs += 30.0f * deltaTime;
+				RLegs += 30.0f * deltaTime;
+				head += 10.0f * deltaTime;
+				tail -= 30.0f * deltaTime;
+				if (RLegs > 15.0f)
+					step = true;
+			}
+			else {
+				FLegs -= 30.0f * deltaTime;
+				RLegs -= 30.0f * deltaTime;
+				head -= 10.0f * deltaTime;
+				tail += 30.0f * deltaTime;
+
+				if (RLegs < -15.0f)
+					step = false;
+			}
+			dogPos.z += 0.5f * deltaTime;
+			//printf("\n%f", RLegs);
 		}
 		else {
-			FLegs -= 0.3f;
-			RLegs -= 0.3f;
-			head -= 0.3f;
-			tail += 0.3f;
-			if (RLegs < -15.0f)
-				step = false;
+			dogAnim = 0;
+			AnimDog = false;
+			FLegs = 0.0f;
+			RLegs = 0.0f;
+			head = 0.0f;
+			tail = 0.0f;
+			dogPos.z = 0.0f;
 		}
-		dogPos.z += 0.001;
-		printf("\n%f", RLegs);
 	}
 }
 
