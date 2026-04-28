@@ -516,6 +516,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	
 }
 void Animation() {
+
 	if (AnimBall)
 	{
 		rotBall += 0.4f;
@@ -527,56 +528,150 @@ void Animation() {
 		rotDog -= 0.6f;
 		//printf("%f", rotBall);
 	}
-	if (dogAnim == 1) { //walk animation
-		float limitePiso = 2.4f;
-		if (dogPos.z < limitePiso) {
-			//caminar
-			if (!step) {
-				FLegs += 30.0f * deltaTime;
-				RLegs += 30.0f * deltaTime;
-				head += 10.0f * deltaTime;
-				tail -= 30.0f * deltaTime;
-				if (RLegs > 15.0f)
-					step = true;
-			}
-			else {
-				FLegs -= 30.0f * deltaTime;
-				RLegs -= 30.0f * deltaTime;
-				head -= 10.0f * deltaTime;
-				tail += 30.0f * deltaTime;
 
-				if (RLegs < -15.0f)
-					step = false;
-			}
-			dogPos.z += 0.5f * deltaTime;
-			//printf("\n%f", RLegs);
+	if (dogAnim != 0) { //walk animation
+		if (!step) {
+			FLegs += 30.0f * deltaTime;
+			RLegs += 30.0f * deltaTime;
+			head += 10.0f * deltaTime;
+			tail -= 30.0f * deltaTime;
+			if (RLegs > 15.0f)
+				step = true;
 		}
 		else {
-			dogAnim = 0;
-			AnimDog = false;
-			FLegs = 0.0f;
-			RLegs = 0.0f;
-			head = 0.0f;
-			tail = 0.0f;
-			dogPos.z = 0.0f;
+			FLegs -= 30.0f * deltaTime;
+			RLegs -= 30.0f * deltaTime;
+			head -= 10.0f * deltaTime;
+			tail += 30.0f * deltaTime;
+			if (RLegs < -15.0f)
+				step = false;
 		}
 	}
+	float limiteZ = 2.4f;
+	float limiteX = 2.4f;
+	//estado 1
+	if (dogAnim == 1) {
+		if (dogPos.z < limiteZ) {
+			dogPos.z += 0.5f * deltaTime;
+		}
+		else
+		{
+			
+			dogAnim = 2; //cambio al estado de giro
+		}
+	}
+	//estado 2
+	if (dogAnim == 2) {
+		if (dogRot > -90.0f) {
+			dogRot -= 90.0f * deltaTime;
+		}
+		else
+		{
+			dogRot = -90.0f;
+			dogAnim = 3; //cambio al estado de caminar hacia el otro lado
+		}
+
+	}
+	//estado 3 caminar 
+	if (dogAnim == 3) {
+		if (dogPos.x > -limiteX) {
+			dogPos.x -= 0.5f * deltaTime;
+		}
+		else
+		{
+			
+			dogAnim = 4; //cambio al estado de giro
+
+		}
+	}
+	//estado 4
+	if(dogAnim== 4) {
+		if (dogRot > -180.0f) {
+			dogRot -= 90.0f * deltaTime;
+		}
+		else
+		{
+			dogRot = -180.0f;
+			dogAnim = 5; //cambio al estado de caminar hacia el otro lado
+		}
+	}
+	//estado 5 caminar
+	if(dogAnim == 5) {
+		if (dogPos.z > - 2.3f) {
+			dogPos.z -= 0.5f * deltaTime;
+		}
+		else
+		{
+			dogAnim = 6; //cambio al estado de giro
+		}
+	}
+	if (dogAnim == 6) {
+		if(dogRot > -270.0f) {
+			dogRot -= 90.0f * deltaTime;
+		}
+		else
+		{
+			dogRot = -270.0f;
+			dogAnim = 7; //cambio al estado de caminar hacia el otro lado
+		}
+	}
+	if (dogAnim == 7) {
+		if (dogPos.x < 2.3f) {
+			dogPos.x += 0.5f * deltaTime;
+		}
+		else
+		{
+			
+			dogAnim = 8; //cambio al estado de caminar hacia el otro lado
+		}
+	}
+	if (dogAnim == 8) {
+		if (dogRot > -315.0f) {
+			dogRot -= 45.0f * deltaTime;
+		}
+		else {
+			dogRot = -315.0f;
+
+			// Caminar en diagonal hacia el centro
+			if (dogPos.x > 0.0f) {
+				dogPos.x -= 0.5f * deltaTime;
+			}
+
+			if (dogPos.z < 0.0f) {
+				dogPos.z += 0.5f * deltaTime;
+			}
+
+			// Cuando ya llegó al centro
+			if (dogPos.x <= 0.0f && dogPos.z >= 0.0f) {
+				dogPos = glm::vec3(0.0f, 0.0f, 0.0f);
+				dogRot = 0.0f;
+				dogAnim = 0;
+
+				FLegs = 0.0f;
+				RLegs = 0.0f;
+				head = 0.0f;
+				tail = 0.0f;
+			}
+		}
+	}
+	
+
 }
 
-void MouseCallback(GLFWwindow *window, double xPos, double yPos)
-{
-	if (firstMouse)
+	void MouseCallback(GLFWwindow * window, double xPos, double yPos)
 	{
+		if (firstMouse)
+		{
+			lastX = xPos;
+			lastY = yPos;
+			firstMouse = false;
+		}
+
+		GLfloat xOffset = xPos - lastX;
+		GLfloat yOffset = lastY - yPos;  // Reversed since y-coordinates go from bottom to left
+
 		lastX = xPos;
 		lastY = yPos;
-		firstMouse = false;
+
+		camera.ProcessMouseMovement(xOffset, yOffset);
 	}
-
-	GLfloat xOffset = xPos - lastX;
-	GLfloat yOffset = lastY - yPos;  // Reversed since y-coordinates go from bottom to left
-
-	lastX = xPos;
-	lastY = yPos;
-
-	camera.ProcessMouseMovement(xOffset, yOffset);
-}
