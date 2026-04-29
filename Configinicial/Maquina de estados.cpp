@@ -626,12 +626,11 @@ void Animation() {
 		}
 	}
 	if (dogAnim == 8) {
-		if (dogRot > -315.0f) {
-			dogRot -= 45.0f * deltaTime;
+		if (dogRot > -405.0f) {
+			dogRot -= 90.0f * deltaTime;
 		}
 		else {
-			dogRot = -315.0f;
-
+			dogRot = -405.0f;
 			// Caminar en diagonal hacia el centro
 			if (dogPos.x > 0.0f) {
 				dogPos.x -= 0.5f * deltaTime;
@@ -645,13 +644,14 @@ void Animation() {
 			if (dogPos.x <= 0.0f && dogPos.z >= 0.0f) {
 				dogPos = glm::vec3(0.0f, 0.0f, 0.0f);
 				dogRot = 0.0f;
-				dogAnim = 0;
 
 				FLegs = 0.0f;
 				RLegs = 0.0f;
 				head = 0.0f;
 				tail = 0.0f;
+				dogAnim = 1;
 			}
+
 		}
 	}
 	
