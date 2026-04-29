@@ -547,100 +547,91 @@ void Animation() {
 				step = false;
 		}
 	}
-	float limiteZ = 2.4f;
-	float limiteX = 2.4f;
-	//estado 1
-	if (dogAnim == 1) {
-		if (dogPos.z < limiteZ) {
-			dogPos.z += 0.5f * deltaTime;
-		}
+	float limiteZ = 2.2f;
+	float limiteX = 2.2f;
+	float velocidad = 0.3f;
+	float velocidadGiro = 90.0f;
+	switch (dogAnim)
+	{
+	case 1: // Camina en +Z
+		if (dogPos.z < limiteZ)
+			dogPos.z += velocidad * deltaTime;
 		else
-		{
-			
-			dogAnim = 2; //cambio al estado de giro
-		}
-	}
-	//estado 2
-	if (dogAnim == 2) {
+			dogAnim = 2;
+		break;
+
+	case 2: // Gira 90 grados
 		if (dogRot > -90.0f) {
-			dogRot -= 90.0f * deltaTime;
+			dogRot -= velocidadGiro * deltaTime;
+			dogPos.x += sin(glm::radians(dogRot)) * velocidad * deltaTime;
+			dogPos.z += cos(glm::radians(dogRot)) * velocidad * deltaTime;
 		}
-		else
-		{
+		else {
 			dogRot = -90.0f;
-			dogAnim = 3; //cambio al estado de caminar hacia el otro lado
+			dogAnim = 3;
 		}
+		break;
 
-	}
-	//estado 3 caminar 
-	if (dogAnim == 3) {
-		if (dogPos.x > -limiteX) {
-			dogPos.x -= 0.5f * deltaTime;
-		}
+	case 3: // Camina en -X
+		if (dogPos.x > -limiteX)
+			dogPos.x -= velocidad * deltaTime;
 		else
-		{
-			
-			dogAnim = 4; //cambio al estado de giro
+			dogAnim = 4;
+		break;
 
-		}
-	}
-	//estado 4
-	if(dogAnim== 4) {
-		if (dogRot > -180.0f) {
-			dogRot -= 90.0f * deltaTime;
-		}
-		else
-		{
+	case 4: // Gira 90 grados
+		if (dogRot > -180.0f){
+			dogRot -= velocidadGiro * deltaTime;
+			dogPos.x += sin(glm::radians(dogRot)) * velocidad * deltaTime;
+			dogPos.z += cos(glm::radians(dogRot)) * velocidad * deltaTime;
+			}
+		else {
 			dogRot = -180.0f;
-			dogAnim = 5; //cambio al estado de caminar hacia el otro lado
+			dogAnim = 5;
 		}
-	}
-	//estado 5 caminar
-	if(dogAnim == 5) {
-		if (dogPos.z > - 2.3f) {
-			dogPos.z -= 0.5f * deltaTime;
-		}
+		break;
+
+	case 5: // Camina en -Z
+		if (dogPos.z > -2.3f)
+			dogPos.z -= velocidad * deltaTime;
 		else
-		{
-			dogAnim = 6; //cambio al estado de giro
+			dogAnim = 6;
+		break;
+
+	case 6: // Gira 90 grados
+		if (dogRot > -270.0f) {
+			dogRot -= velocidadGiro * deltaTime;
+			dogPos.x += sin(glm::radians(dogRot)) * velocidad * deltaTime;
+			dogPos.z += cos(glm::radians(dogRot)) * velocidad * deltaTime;
 		}
-	}
-	if (dogAnim == 6) {
-		if(dogRot > -270.0f) {
-			dogRot -= 90.0f * deltaTime;
-		}
-		else
-		{
+		else {
 			dogRot = -270.0f;
-			dogAnim = 7; //cambio al estado de caminar hacia el otro lado
+			dogAnim = 7;
 		}
-	}
-	if (dogAnim == 7) {
-		if (dogPos.x < 2.3f) {
-			dogPos.x += 0.5f * deltaTime;
-		}
+		break;
+
+	case 7: // Camina en +X
+		if (dogPos.x < 2.3f)
+			dogPos.x += velocidad * deltaTime;
 		else
-		{
-			
-			dogAnim = 8; //cambio al estado de caminar hacia el otro lado
-		}
-	}
-	if (dogAnim == 8) {
+			dogAnim = 8;
+		break;
+
+	case 8: // Gira y camina en diagonal al centro
 		if (dogRot > -405.0f) {
-			dogRot -= 90.0f * deltaTime;
+			dogRot -= velocidadGiro * deltaTime;
+			dogPos.x += sin(glm::radians(dogRot)) * velocidad * deltaTime;
+			dogPos.z += cos(glm::radians(dogRot)) * velocidad * deltaTime;
 		}
 		else {
 			dogRot = -405.0f;
-			// Caminar en diagonal hacia el centro
-			if (dogPos.x > 0.0f) {
-				dogPos.x -= 0.5f * deltaTime;
-			}
 
-			if (dogPos.z < 0.0f) {
-				dogPos.z += 0.5f * deltaTime;
-			}
+			if (dogPos.x > 0.0f)
+				dogPos.x -= velocidad * deltaTime;
 
-			// Cuando ya llegó al centro
+			if (dogPos.z < 0.0f)
+				dogPos.z += velocidad * deltaTime;
+
 			if (dogPos.x <= 0.0f && dogPos.z >= 0.0f) {
 				dogPos = glm::vec3(0.0f, 0.0f, 0.0f);
 				dogRot = 0.0f;
@@ -649,12 +640,12 @@ void Animation() {
 				RLegs = 0.0f;
 				head = 0.0f;
 				tail = 0.0f;
-				dogAnim = 1;
-			}
 
+				dogAnim = 1; // ciclo
+			}
 		}
+		break;
 	}
-	
 
 }
 
