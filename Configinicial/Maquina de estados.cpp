@@ -1,7 +1,7 @@
 // Laura Reyes Carrillo
 // Animacion con maquinas de estados
-// 26 de Abril de 2026
-// Previo 11   
+// 29 de Abril de 2026
+// Practica 11   
 // 320015764
 
 
