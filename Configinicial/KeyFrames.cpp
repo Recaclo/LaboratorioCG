@@ -1,7 +1,7 @@
 // Laura Reyes Carrillo
 // Keyframes
 // 3 de Mayo de 2026
-// Previo 12 
+// Practica 12 
 // 320015764
 
 #include <iostream>
@@ -30,12 +30,25 @@
 #include "Camera.h"
 #include "Model.h"
 
+//para json 
+#include <fstream>
+#include "json.hpp"
+#include <string>
+#include <sstream>
+
+using json = nlohmann::json;
+
 
 // Function prototypes
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
 void Animation();
+void saveAnimationJSON(const char* filename);
+void loadAnimationJSON(const char* filename);
+std::string getNextAnimationFilename();
+void saveAnimationAutoJSON();
+std::string getSelectedAnimationFilename();
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -50,6 +63,7 @@ bool firstMouse = true;
 // Light attributes
 glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 bool active;
+int selectedAnimation = 1;
 
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
@@ -109,6 +123,7 @@ glm::vec3 Light1 = glm::vec3(0);
 float rotBall = 0.0f;
 float rotDog = 0.0f;
 float rotDogX = 0.0f;
+float rotDogZ = 0.0f;
 int dogAnim = 0;
 float FLegs = 0.0f;
 float RLegs = 0.0f;
@@ -125,7 +140,7 @@ float BRightLeg = 0.0f;
 //KeyFrames
 float dogPosX , dogPosY , dogPosZ  ;
 
-#define MAX_FRAMES 20
+#define MAX_FRAMES 30
 int i_max_steps = 190;
 int i_curr_steps = 0;
 typedef struct _frame {
@@ -134,6 +149,8 @@ typedef struct _frame {
 	float rotDogInc;
 	float rotDogX;
 	float rotDogXInc;
+	float rotDogZ;
+	float rotDogZInc;
 	float dogPosX;
 	float dogPosY;
 	float dogPosZ;
@@ -174,6 +191,7 @@ void saveFrame(void)
 
 	KeyFrame[FrameIndex].rotDog = rotDog;
 	KeyFrame[FrameIndex].rotDogX = rotDogX;
+	KeyFrame[FrameIndex].rotDogZ = rotDogZ;
 	KeyFrame[FrameIndex].head = head;
 	KeyFrame[FrameIndex].tail = tail;
 
@@ -201,8 +219,152 @@ void resetElements(void)
 
 	rotDog = KeyFrame[0].rotDog;
 	rotDogX = KeyFrame[0].rotDogX;
+	rotDogZ = KeyFrame[0].rotDogZ;
 
 }
+
+
+void saveAnimationJSON(const char* filename)
+{
+	json animation;
+
+	animation["totalFrames"] = FrameIndex;
+	animation["maxSteps"] = i_max_steps;
+	animation["keyframes"] = json::array();
+
+	for (int i = 0; i < FrameIndex; i++)
+	{
+		json frame;
+
+		frame["dogPosX"] = KeyFrame[i].dogPosX;
+		frame["dogPosY"] = KeyFrame[i].dogPosY;
+		frame["dogPosZ"] = KeyFrame[i].dogPosZ;
+
+		frame["rotDog"] = KeyFrame[i].rotDog;
+		frame["rotDogX"] = KeyFrame[i].rotDogX;
+		frame["rotDogZ"] = KeyFrame[i].rotDogZ;
+
+		frame["head"] = KeyFrame[i].head;
+		frame["tail"] = KeyFrame[i].tail;
+
+		frame["FLeftLeg"] = KeyFrame[i].FLeftLeg;
+		frame["FRightLeg"] = KeyFrame[i].FRightLeg;
+
+		frame["BLeftLeg"] = KeyFrame[i].BLeftLeg;
+		frame["BRightLeg"] = KeyFrame[i].BRightLeg;
+
+		animation["keyframes"].push_back(frame);
+	}
+
+	std::ofstream file(filename);
+
+	if (!file.is_open())
+	{
+		printf("No se pudo crear el archivo JSON\n");
+		return;
+	}
+
+	file << animation.dump(4);
+	file.close();
+
+	printf("Animacion guardada en %s\n", filename);
+}
+
+void loadAnimationJSON(const char* filename)
+{
+	std::ifstream file(filename);
+
+	if (!file.is_open())
+	{
+		printf("No se pudo abrir el archivo JSON\n");
+		return;
+	}
+
+	json animation;
+	file >> animation;
+	file.close();
+
+	FrameIndex = animation["totalFrames"];
+	i_max_steps = animation["maxSteps"];
+
+	if (FrameIndex > MAX_FRAMES)
+	{
+		printf("El archivo tiene mas frames que MAX_FRAMES. Se cargaran solo %d frames\n", MAX_FRAMES);
+		FrameIndex = MAX_FRAMES;
+	}
+
+	for (int i = 0; i < FrameIndex; i++)
+	{
+		KeyFrame[i].dogPosX = animation["keyframes"][i]["dogPosX"];
+		KeyFrame[i].dogPosY = animation["keyframes"][i]["dogPosY"];
+		KeyFrame[i].dogPosZ = animation["keyframes"][i]["dogPosZ"];
+
+		KeyFrame[i].rotDog = animation["keyframes"][i]["rotDog"];
+		KeyFrame[i].rotDogX = animation["keyframes"][i]["rotDogX"];
+		KeyFrame[i].rotDogZ = animation["keyframes"][i]["rotDogZ"];
+
+		KeyFrame[i].head = animation["keyframes"][i]["head"];
+		KeyFrame[i].tail = animation["keyframes"][i]["tail"];
+
+		KeyFrame[i].FLeftLeg = animation["keyframes"][i]["FLeftLeg"];
+		KeyFrame[i].FRightLeg = animation["keyframes"][i]["FRightLeg"];
+
+		KeyFrame[i].BLeftLeg = animation["keyframes"][i]["BLeftLeg"];
+		KeyFrame[i].BRightLeg = animation["keyframes"][i]["BRightLeg"];
+	}
+
+	resetElements();
+
+	printf("Animacion cargada desde %s\n", filename);
+}
+
+std::string getNextAnimationFilename()
+{
+	int number = 1;
+
+	while (true)
+	{
+		std::stringstream ss;
+		ss << "animacion_" << number << ".json";
+
+		std::ifstream file(ss.str());
+
+		// Si el archivo no existe, ese nombre está libre
+		if (!file.good())
+		{
+			return ss.str();
+		}
+
+		file.close();
+		number++;
+	}
+}
+
+void saveAnimationAutoJSON()
+{
+	if (FrameIndex <= 0)
+	{
+		printf("No hay keyframes para guardar.\n");
+		return;
+	}
+
+	std::string filename = getNextAnimationFilename();
+
+	saveAnimationJSON(filename.c_str());
+
+	printf("Animacion guardada automaticamente como: %s\n", filename.c_str());
+}
+
+std::string getSelectedAnimationFilename()
+{
+	std::stringstream ss;
+	ss << "animacion_" << selectedAnimation << ".json";
+	return ss.str();
+}
+
+
+
+
 void interpolation(void)
 {
 
@@ -213,6 +375,8 @@ void interpolation(void)
 
 	KeyFrame[playIndex].rotDogInc = (KeyFrame[playIndex + 1].rotDog - KeyFrame[playIndex].rotDog) / i_max_steps;
 	KeyFrame[playIndex].rotDogXInc = (KeyFrame[playIndex + 1].rotDogX - KeyFrame[playIndex].rotDogX) / i_max_steps;
+	KeyFrame[playIndex].rotDogZInc = (KeyFrame[playIndex + 1].rotDogZ - KeyFrame[playIndex].rotDogZ) / i_max_steps;
+
 	KeyFrame[playIndex].tailInc = (KeyFrame[playIndex + 1].tail - KeyFrame[playIndex].tail) / i_max_steps;
 	KeyFrame[playIndex].FLeftLegInc = (KeyFrame[playIndex + 1].FLeftLeg - KeyFrame[playIndex].FLeftLeg) / i_max_steps;
 	KeyFrame[playIndex].FRightLegInc = (KeyFrame[playIndex + 1].FRightLeg - KeyFrame[playIndex].FRightLeg) / i_max_steps;
@@ -303,6 +467,8 @@ int main()
 		KeyFrame[i].rotDogInc = 0;
 		KeyFrame[i].rotDogX = 0;
 		KeyFrame[i].rotDogXInc = 0;
+		KeyFrame[i].rotDogZ = 0;
+		KeyFrame[i].rotDogZInc = 0;
 		KeyFrame[i].head = 0;
 		KeyFrame[i].headInc = 0;
 		KeyFrame[i].tail = 0;
@@ -454,6 +620,8 @@ int main()
 		modelTemp = model = glm::rotate(model, glm::radians(rotDog), glm::vec3(0.0f, 1.0f, 0.0f));
 		// Inclinación del perro para sentarse
 		modelTemp = model = glm::rotate(model, glm::radians(rotDogX), glm::vec3(1.0f, 0.0f, 0.0f));
+		// Rotación del perro alrededor del eje Z
+		modelTemp = model = glm::rotate(model, glm::radians(rotDogZ), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		DogBody.Draw(lightingShader);
 		//Head
@@ -574,6 +742,18 @@ void DoMovement()
 	{
 		tail -= 1.0f;
 	}
+
+	// Rotación del perro en eje Z
+	if (keys[GLFW_KEY_8])
+	{
+		rotDogZ += 1.0f;
+	}
+
+	if (keys[GLFW_KEY_9])
+	{
+		rotDogZ -= 1.0f;
+	}
+
 	// Pata delantera izquierda
 	if (keys[GLFW_KEY_Z])
 	{
@@ -728,40 +908,8 @@ void DoMovement()
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-
-	if (keys[GLFW_KEY_L])
-	{
-		if (play == false && (FrameIndex > 1))
-		{
-
-			resetElements();
-			//First Interpolation				
-			interpolation();
-
-			play = true;
-			playIndex = 0;
-			i_curr_steps = 0;
-		}
-		else
-		{
-			play = false;
-		}
-
-	}
-
-	if (keys[GLFW_KEY_K])
-	{
-		if (FrameIndex < MAX_FRAMES)
-		{
-			saveFrame();
-		}
-
-	}
-
-
-
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
@@ -779,22 +927,87 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		}
 	}
 
-	if (keys[GLFW_KEY_SPACE])
+	// Guardar keyframe
+	if (key == GLFW_KEY_K && action == GLFW_PRESS)
 	{
-		active = !active;
-		if (active)
+		if (FrameIndex < MAX_FRAMES)
 		{
-			Light1 = glm::vec3(0.2f, 0.8f, 1.0f);
-			
+			saveFrame();
 		}
 		else
 		{
-			Light1 = glm::vec3(0);//Cuado es solo un valor en los 3 vectores pueden dejar solo una componente
+			printf("Ya no hay espacio para mas keyframes\n");
 		}
 	}
-	
-	
+
+	// Reproducir o detener animacion
+	if (key == GLFW_KEY_L && action == GLFW_PRESS)
+	{
+		if (play == false && (FrameIndex > 1))
+		{
+			resetElements();
+			interpolation();
+
+			play = true;
+			playIndex = 0;
+			i_curr_steps = 0;
+
+			printf("Reproduciendo animacion\n");
+		}
+		else
+		{
+			play = false;
+			printf("Animacion detenida\n");
+		}
+	}
+
+	// Guardar animacion en JSON
+	if (key == GLFW_KEY_F1 && action == GLFW_PRESS)
+	{
+		saveAnimationAutoJSON();
+	}
+	// Cargar animacion desde JSON
+	if (key == GLFW_KEY_F2 && action == GLFW_PRESS)
+	{
+		std::string filename = getSelectedAnimationFilename();
+		loadAnimationJSON(filename.c_str());
+	}
+
+	if (key == GLFW_KEY_F5 && action == GLFW_PRESS)
+	{
+		if (selectedAnimation > 1)
+		{
+			selectedAnimation--;
+		}
+
+		printf("Animacion seleccionada: animacion_%d.json\n", selectedAnimation);
+	}
+
+	if (key == GLFW_KEY_F6 && action == GLFW_PRESS)
+	{
+		selectedAnimation++;
+
+		printf("Animacion seleccionada: animacion_%d.json\n", selectedAnimation);
+	}
+
+	// Activar o apagar luz
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		active = !active;
+
+		if (active)
+		{
+			Light1 = glm::vec3(0.2f, 0.8f, 1.0f);
+		}
+		else
+		{
+			Light1 = glm::vec3(0);
+		}
+	}
 }
+
+
+
 void Animation() {
 
 	if (play)
@@ -830,6 +1043,7 @@ void Animation() {
 
 			rotDog += KeyFrame[playIndex].rotDogInc;
 			rotDogX += KeyFrame[playIndex].rotDogXInc;
+			rotDogZ += KeyFrame[playIndex].rotDogZInc;
 
 			i_curr_steps++;
 		}
@@ -855,3 +1069,5 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos)
 
 	camera.ProcessMouseMovement(xOffset, yOffset);
 }
+
+
